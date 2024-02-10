@@ -43,3 +43,7 @@ def bookDelete(request, id):
     except:
         pass
     return redirect('book-list')
+
+def bookDetails(request, id):
+    book = Book.objects.get(id=id)
+    return render(request, 'book-details.html', {'book': book})

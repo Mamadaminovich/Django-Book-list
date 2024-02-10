@@ -1,0 +1,18 @@
+{% extends "base.html" %} {% block content %}
+<div class="container d-flex justify-content-center align-items-center vh-100">
+  <div>
+    <h1 class="mb-4">Book Details</h1>
+    <h3 class="p-1">Title:</h3>
+    <p class="p-1">{{ book.title }}</p>
+    <h3 class="p-1">Description:</h3>
+    <textarea cols="50" rows="10" class="p-2">{{ book.description }}</textarea>
+    <h3 class="p-1">Author:</h3>
+    <p class="p-1">{{ book.author }}</p>
+    <h3 class="p-1">Year:</h3>
+    <p class="p-1">{{ book.year }}</p>
+    <a type="button" class="btn btn-info" href="{%url 'book-list' %}"
+      >Come Back</a
+    >
+  </div>
+</div>
+{% endblock %}
