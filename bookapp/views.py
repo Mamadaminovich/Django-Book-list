@@ -1,12 +1,11 @@
 
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Book
 from .forms import BookForm
-
 # Create your views here.
-def bookList(request):  
-    books = Book.objects.all()  
-    return render(request,"book-list.html",{'books':books})  
+def bookList(request):
+    books = Book.objects.all().order_by('-likes', '-dislikes')[:10]
+    return render(request, "book-list.html", {'books': books})
 
 def bookCreate(request):  
     if request.method == "POST":  
@@ -47,3 +46,16 @@ def bookDelete(request, id):
 def bookDetails(request, id):
     book = Book.objects.get(id=id)
     return render(request, 'book-details.html', {'book': book})
+
+
+def like_book(request, id):
+    book = get_object_or_404(Book, id=id)
+    book.likes += 1
+    book.save()
+    return redirect('book-list')
+
+def dislike_book(request, id):
+    book = get_object_or_404(Book, id=id)
+    book.dislikes += 1
+    book.save()
+    return redirect('book-list')
